@@ -11,6 +11,7 @@
 # 4. Source the test_cmp.sh file (reference line 3 from test_example.sh)
 # 5. Run the test file from your hw1/ directory (by doing ./t/test_example.sh)
 test_cmp () {
+        failed=0
         echo "Running ${1}" &&
         expect="t/${1}_expect" &&
         actual="t/${1}_actual" &&
@@ -18,5 +19,11 @@ test_cmp () {
 $3
 EOF
         eval "${2}" >$actual &&
-        cmp "$expect" "$actual" || echo "${1} failed"
+        cmp "$expect" "$actual" || failed=1
+        if [ $failed -eq 0 ]
+        then
+        rm "$expect" "$actual"
+        else
+        echo "${1} failed"
+        fi
 }

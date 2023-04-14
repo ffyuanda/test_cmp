@@ -18,7 +18,7 @@ test_cmp () {
         cat >$expect <<-EOF &&
 $3
 EOF
-        eval "${2}" >$actual 2>&1 &&
+        eval "${2}" >$actual 2>&1
         cmp "$expect" "$actual" || failed=1
         if [ $failed -eq 0 ]
         then
